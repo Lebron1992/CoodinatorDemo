@@ -8,8 +8,15 @@
 
 import UIKit
 
+protocol LandingViewControllerDelegate: class {
+    func landingViewControllerSignUpButtonTapped(_ viewController: LandingViewController)
+    func landingViewControllerLoginButtonTapped(_ viewController: LandingViewController)
+}
+
 class LandingViewController: UIViewController, Storyboarded {
 
+    weak var delegate: LandingViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -21,13 +28,11 @@ class LandingViewController: UIViewController, Storyboarded {
     // MARK: - Actions
 
     @IBAction func signUpButtonTapped() {
-        AppDelegate.shared?.mainCoordinator
-            .onboardingCoordinator.navigateToSignUpView()
+        delegate?.landingViewControllerSignUpButtonTapped(self)
     }
 
     @IBAction func logInButtonTapped() {
-        AppDelegate.shared?.mainCoordinator
-            .onboardingCoordinator.navigateToLogInView()
+        delegate?.landingViewControllerLoginButtonTapped(self)
     }
 
 }

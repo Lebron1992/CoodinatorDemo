@@ -17,6 +17,7 @@ final class OnboardingCoordinator: CoordinatorType {
 
     func launch() {
         let landingVC = LandingViewController.instantiate()
+        landingVC.delegate = self
         navigationController.pushViewController(landingVC, animated: false)
         AppDelegate.shared?.window?.rootViewController = navigationController
     }
@@ -32,5 +33,16 @@ extension OnboardingCoordinator {
     func navigateToLogInView() {
         let logInVC = LogInViewController.instantiate()
         navigationController.pushViewController(logInVC, animated: true)
+    }
+}
+
+// MARK: - LandingViewControllerDelegate
+extension OnboardingCoordinator: LandingViewControllerDelegate {
+    func landingViewControllerSignUpButtonTapped(_ viewController: LandingViewController) {
+        navigateToSignUpView()
+    }
+    
+    func landingViewControllerLoginButtonTapped(_ viewController: LandingViewController) {
+        navigateToLogInView()
     }
 }
